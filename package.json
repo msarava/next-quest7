@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "0.21.1",
+    "better-sqlite3": "^7.5.3",
     "moment": "2.29.1",
     "next": "10.0.7",
     "raw-body": "2.4.1",
