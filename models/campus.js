@@ -1,7 +1,7 @@
 import { getDb2 } from '../db2.js';
 
-class InvalidInputError extends Error {}
-class NotFoundError extends Error {}
+export class InvalidInputError extends Error {}
+export class NotFoundError extends Error {}
 
 /**
  * It gets the database connection, then it runs two queries, one to get the campuses and one to get

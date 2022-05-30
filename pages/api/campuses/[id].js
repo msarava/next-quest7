@@ -1,4 +1,4 @@
-import { getCampus, updateCampus } from '../../../models/campus';
+import { getCampus, InvalidInputError, NotFoundError, updateCampus } from '../../../models/campus';
 
 export default async function handler(req, res) {
   console.log('requete en cours', req.method);
@@ -22,15 +22,10 @@ export default async function handler(req, res) {
       );
       res.status(200).json({ id, name });
     } catch (error) {
-      if (
-        error.message === 'Campus name should be a string of 1 to 50 characters'
-      ) {
+      if (error instanceof InvalidInputError) {
         res.status(422).send(error.message);
-      } else if (
-        error.message === `Campus with id ${req.query.id} not found.`
-      ) {
+      } else if (error instanceof NotFoundError) {
         res.status(404).send(error.message);
-      }
     }
   }
 
@@ -41,7 +36,9 @@ export default async function handler(req, res) {
 
       res.status(204).end();
     } catch (error) {
-      res.status(404).send(error.message);
+      if (error instanceof NotFoundError) {
+        res.status(404).send(error.message);
+      }
     }
   }
 }
